@@ -145,6 +145,42 @@ const actors = [{
   }]
 }];
 
-console.log(truckers);
+/*console.log(truckers);
 console.log(deliveries);
-console.log(actors);
+console.log(actors);*/
+
+
+/* Step 1*/
+for (var j = 0, l = deliveries.length; j < l; j++) {   
+        var truck = truckers.find(function(component) {return component.id == deliveries[j].truckerId ;});
+	deliveries[j].price= truck.pricePerKm * deliveries[j].distance + truck.pricePerVolume * deliveries[j].volume;
+}
+console.log(deliveries);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
