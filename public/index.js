@@ -151,11 +151,50 @@ console.log(actors);*/
 
 
 /* Step 1*/
-for (var j = 0, l = deliveries.length; j < l; j++) {   
+/*for (var j = 0, l = deliveries.length; j < l; j++) {   
         var truck = truckers.find(function(component) {return component.id == deliveries[j].truckerId ;});
 	deliveries[j].price= truck.pricePerKm * deliveries[j].distance + truck.pricePerVolume * deliveries[j].volume;
 }
+console.log(deliveries);*/
+
+
+/* Step 2*/
+
+/* 
+    decreases by 10% after 5 m3
+    decreases by 30% after 10 m3
+    decreases by 50% after 25 m3
+*/
+
+
+for (var j = 0, l = deliveries.length; j < l; j++) { 
+  
+        var truck = truckers.find(function(component) {return component.id == deliveries[j].truckerId ;});
+	deliveries[j].price= truck.pricePerKm * deliveries[j].distance + truck.pricePerVolume * deliveries[j].volume;	
+
+	if ( deliveries[j].volume > 5){
+		
+		deliveries[j].price = 0.9 * deliveries[j].price;
+	
+	}
+
+	
+	if ( deliveries[j].volume > 10){
+		
+		deliveries[j].price = 0.7* deliveries[j].price;
+	
+	}
+
+	
+	if ( deliveries[j].volume > 25){
+		
+		deliveries[j].price = 0.5 * deliveries[j].price;
+	
+	}
+}
 console.log(deliveries);
+
+
 
 
 
