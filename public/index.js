@@ -145,28 +145,20 @@ const actors = [{
   }]
 }];
 
-/*console.log(truckers);
-console.log(deliveries);
-console.log(actors);*/
+//console.log(truckers);
+//console.log(deliveries);
+//console.log(actors);
 
 
-/* Step 1*/
-/*for (var j = 0, l = deliveries.length; j < l; j++) {   
+////////////////////////////////////////////////////////////////////////////////******** Step 1 *****/////////////////////////////////////////////////////////////////////////////////////////////
+
+for (var j = 0, l = deliveries.length; j < l; j++) {   
         var truck = truckers.find(function(component) {return component.id == deliveries[j].truckerId ;});
-	deliveries[j].price= truck.pricePerKm * deliveries[j].distance + truck.pricePerVolume * deliveries[j].volume;
+	deliveries[j].price= truck.pricePerKm * deliveries[j].distance + truck.pricePerVolume * deliveries[j].volume; 
 }
-console.log(deliveries);*/
+//console.log(deliveries);
 
-
-/* Step 2*/
-
-/* 
-    decreases by 10% after 5 m3
-    decreases by 30% after 10 m3
-    decreases by 50% after 25 m3
-*/
-
-
+////////////////////////////////////////////////////////////////////////////////******* Step 2 ******/////////////////////////////////////////////////////////////////////////////////////
 for (var j = 0, l = deliveries.length; j < l; j++) { 
   
         var truck = truckers.find(function(component) {return component.id == deliveries[j].truckerId ;});
@@ -177,11 +169,10 @@ for (var j = 0, l = deliveries.length; j < l; j++) {
 		deliveries[j].price = 0.9 * deliveries[j].price;
 	
 	}
-
 	
 	if ( deliveries[j].volume > 10){
 		
-		deliveries[j].price = 0.7* deliveries[j].price;
+		deliveries[j].price = 0.7 * deliveries[j].price;
 	
 	}
 
@@ -192,15 +183,109 @@ for (var j = 0, l = deliveries.length; j < l; j++) {
 	
 	}
 }
+//console.log(deliveries);
+
+
+//////////////////////////////////////////////////////////////////////////////***step 3****///////////////////////////////////////////////////////////////////////////
+
+for (var j = 0, l = deliveries.length; j < l; j++) { 
+  
+       
+	var com = 0.3 * deliveries[j].price;	
+	var reste = com * 0.5 ;
+
+	deliveries[j].commission.insurance = com * 0.5;
+	deliveries[j].commission.treasury = deliveries[j].distance / 500;
+	deliveries[j].commission.convargo = reste - deliveries[j].commission.treasury;
+
+	
+}
+
 console.log(deliveries);
 
 
+//////////////////////////////////////////////////////////////////////////////***step 4 ****///////////////////////////////////////////////////////////////////////////
+
+/*
+for (var j = 0, l = deliveries.length; j < l; j++) { 
+
+	
+	deliveries[j].options.deductile_reduction = 0;
+
+	if ( deliveries[j].options.deductibleReduction == true){
+	
+		 deliveries[j].options.deductile_reduction =  deliveries[j].volume;
+		 deliveries[j].price =  deliveries[j].price +  deliveries[j].options.deductile_reduction;
+
+	}
+
+      
+}	
+console.log(deliveries);
+
+*/
+//////////////////////////////////////////////////////////////////////////////*** step 5 ****///////////////////////////////////////////////////////////////////////////
+
+/*
+for (var j = 0, l = actors.length; j < l; j++) {   
+	
+       //var truck = truckers.find(function(component) {return component.id == deliveries[j].truckerId ;});
+       //deliveries[j].price= truck.pricePerKm * deliveries[j].distance + truck.pricePerVolume * deliveries[j].volume; 
+
+       var delivery = deliveries.find(function(component) {return component.id == actors[j].deliveryId ;});
+
+       var len = actors[j].payment.length;
+
+       for ( var i = 0; i < len; i++){
+		
+		
+		if ( actors[j].payment[i].who == 'shipper' ) {
+
+			 actors[j].payment[i].amount = delivery.price;
+
+		}
 
 
+		if ( actors[j].payment[i].who == 'trucker' ) {
+			
+			 var variable =  delivery.options.deductile_reduction;
+
+			 actors[j].payment[i].amount = (delivery.price - variable ) * 0.7;
+ 
+		}
+
+		
+		if ( actors[j].payment[i].who == 'insurance' ) {
+
+			 actors[j].payment[i].amount = delivery.commission.insurance;
+
+		}
+
+		
+		if ( actors[j].payment[i].who == 'treasury' ) {
+
+			 actors[j].payment[i].amount = delivery.commission.treasury;
+
+		}
 
 
+		
+		if ( actors[j].payment[i].who == 'convargo' ) {
 
+		         var variable =  delivery.options.deductile_reduction;
 
+			 actors[j].payment[i].amount = delivery.commission.convargo + variable;
+
+		}
+		
+
+       }
+   
+}	
+console.log(actors);
+*/
+
+////////////////////////////////////////////////////////////////// *** FIN  ***///////////////////////////////////////////////////////////////////////////////////////
 
 
 
